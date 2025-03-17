@@ -12,6 +12,8 @@ func main() {
 	handler := &MessageHandler{Message: "welcome to the bookstore"}
 
 	http.Handle("/", handler)
+	http.HandleFunc("/books", booksHandler)
+
 	fmt.Println("Starting the sever at port 8080")
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatal("couldn't start http server")
