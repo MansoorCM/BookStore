@@ -10,7 +10,7 @@ import (
 )
 
 func GetBooks(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Retrieving all books.")
+	json.NewEncoder(w).Encode(model.Books)
 }
 
 func GetBook(w http.ResponseWriter, r *http.Request) {

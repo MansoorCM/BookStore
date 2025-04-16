@@ -11,13 +11,13 @@ type Book struct {
 	Author string
 }
 
-var books = []*Book{
+var Books = []*Book{
 	{ID: "1", Title: "Think and Grow Rich", Author: "Nepolean Hill"},
 	{ID: "2", Title: "The power of positive thinking", Author: "Norman Vincent Peale"},
 }
 
 func GetBookByID(id string) (*Book, error) {
-	for _, book := range books {
+	for _, book := range Books {
 		if book.ID == id {
 			return book, nil
 		}
@@ -26,13 +26,13 @@ func GetBookByID(id string) (*Book, error) {
 }
 
 func AddBook(book *Book) {
-	books = append(books, book)
+	Books = append(Books, book)
 }
 
 func UpdateBook(id string, updatedBook *Book) error {
-	for i, book := range books {
+	for i, book := range Books {
 		if book.ID == id {
-			books[i] = updatedBook
+			Books[i] = updatedBook
 			return nil
 		}
 	}
@@ -40,9 +40,9 @@ func UpdateBook(id string, updatedBook *Book) error {
 }
 
 func DeleteBook(id string) error {
-	for i, book := range books {
+	for i, book := range Books {
 		if book.ID == id {
-			books = slices.Delete(books, i, i+1)
+			Books = slices.Delete(Books, i, i+1)
 			return nil
 		}
 	}
