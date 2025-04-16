@@ -16,7 +16,7 @@ var books = []*Book{
 	{ID: "2", Title: "The power of positive thinking", Author: "Norman Vincent Peale"},
 }
 
-func getBookByID(id string) (*Book, error) {
+func GetBookByID(id string) (*Book, error) {
 	for _, book := range books {
 		if book.ID == id {
 			return book, nil
@@ -25,11 +25,11 @@ func getBookByID(id string) (*Book, error) {
 	return nil, errors.New("Book not found")
 }
 
-func addBook(book *Book) {
+func AddBook(book *Book) {
 	books = append(books, book)
 }
 
-func updateBook(id string, updatedBook *Book) error {
+func UpdateBook(id string, updatedBook *Book) error {
 	for i, book := range books {
 		if book.ID == id {
 			books[i] = updatedBook
@@ -39,7 +39,7 @@ func updateBook(id string, updatedBook *Book) error {
 	return errors.New("Book not found")
 }
 
-func deleteBook(id string) error {
+func DeleteBook(id string) error {
 	for i, book := range books {
 		if book.ID == id {
 			books = slices.Delete(books, i, i+1)
