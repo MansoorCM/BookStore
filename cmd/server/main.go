@@ -21,6 +21,8 @@ func main() {
 	r.Handle("/", handler)
 	r.HandleFunc("/books", api.GetBooks).Methods("GET")
 	r.HandleFunc("/books/{id:[0-9]+}", api.GetBook).Methods("GET")
+	r.HandleFunc("/books/{id:[0-9]+}", api.UpdateBook).Methods("PUT")
+	r.HandleFunc("/books/{id:[0-9]+}", api.DeleteBook).Methods("DELETE")
 	r.HandleFunc("/order", api.OrderHandler).Methods("GET")
 
 	fmt.Println("Starting the sever at port 8080")
