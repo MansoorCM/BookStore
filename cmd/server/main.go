@@ -19,7 +19,8 @@ func main() {
 	handler := &api.MessageHandler{Message: "welcome to the bookstore"}
 
 	r.Handle("/", handler)
-	r.HandleFunc("/books", api.BooksHandler).Methods("GET")
+	r.HandleFunc("/books", api.GetBooks).Methods("GET")
+	r.HandleFunc("/books/{id:[0-9]+}", api.GetBook).Methods("GET")
 	r.HandleFunc("/order", api.OrderHandler).Methods("GET")
 
 	fmt.Println("Starting the sever at port 8080")

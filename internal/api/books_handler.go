@@ -3,8 +3,18 @@ package api
 import (
 	"fmt"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
-func BooksHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "The bookstore site is under progress. Once done, you can see the available list of books here.")
+func GetBooks(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintln(w, "Retrieving all books.")
+}
+
+func GetBook(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	bookId := vars["id"]
+	if bookId != "" {
+		fmt.Fprintf(w, "Retrieving book with id %s", bookId)
+	}
 }
