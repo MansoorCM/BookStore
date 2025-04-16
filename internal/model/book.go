@@ -1,6 +1,9 @@
 package model
 
-import "errors"
+import (
+	"errors"
+	"slices"
+)
 
 type Book struct {
 	ID     string
@@ -20,4 +23,28 @@ func getBookByID(id string) (*Book, error) {
 		}
 	}
 	return nil, errors.New("Book not found")
+}
+
+func addBook(book *Book) {
+	books = append(books, book)
+}
+
+func updateBook(id string, updatedBook *Book) error {
+	for i, book := range books {
+		if book.ID == id {
+			books[i] = updatedBook
+			return nil
+		}
+	}
+	return errors.New("Book not found")
+}
+
+func deleteBook(id string) error {
+	for i, book := range books {
+		if book.ID == id {
+			books = slices.Delete(books, i, i+1)
+			return nil
+		}
+	}
+	return errors.New("Book not found")
 }
