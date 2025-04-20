@@ -40,9 +40,19 @@ func CreateBook(w http.ResponseWriter, r *http.Request) {
 func UpdateBook(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	bookId := vars["id"]
-	if bookId != "" {
-		fmt.Fprintf(w, "Updating book with id %s", bookId)
+
+	var updatedBook model.Book
+	if err := json.NewDecoder(r.Body).Decode(&updatedBook); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
 	}
+
+	if err := model.UpdateBook(bookId, &updatedBook); err != nil {
+		http.Error(w, err.Error(), http.StatusNotFound)
+		return
+	}
+
+	json.NewEncoder(w).Encode(updatedBook)
 }
 
 func DeleteBook(w http.ResponseWriter, r *http.Request) {
