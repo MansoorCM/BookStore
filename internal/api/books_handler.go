@@ -2,7 +2,6 @@ package api
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/MansoorCM/gobook/internal/model"
@@ -58,7 +57,10 @@ func UpdateBook(w http.ResponseWriter, r *http.Request) {
 func DeleteBook(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	bookId := vars["id"]
-	if bookId != "" {
-		fmt.Fprintf(w, "Deleting book with id %s", bookId)
+	if err := model.DeleteBook(bookId); err != nil {
+		http.Error(w, err.Error(), http.StatusNotFound)
+		return
 	}
+
+	w.WriteHeader(http.StatusNoContent)
 }
