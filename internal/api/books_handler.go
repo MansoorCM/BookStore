@@ -16,9 +16,13 @@ func GetBooks(w http.ResponseWriter, r *http.Request) {
 func GetBook(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	bookId := vars["id"]
-	if bookId != "" {
-		fmt.Fprintf(w, "Retrieving book with id %s", bookId)
+	book, err := model.GetBookByID(bookId)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusNotFound)
+		return
 	}
+
+	json.NewEncoder(w).Encode(book)
 }
 
 func CreateBook(w http.ResponseWriter, r *http.Request) {
